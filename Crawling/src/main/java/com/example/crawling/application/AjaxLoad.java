@@ -14,10 +14,10 @@ public class CUCrawling implements Crawling {
    
    @Override
    public String getHtml(int cnt) throws IOException {
-          // 1. URL ¼±¾ğ
+          // 1. URL ì„ ì–¸
           String url = "http://cu.bgfretail.com/event/plusAjax.do";
           
-          // 2. HTML °¡Á®¿À±â
+          // 2. HTML ê°€ì ¸ì˜¤ê¸°
           Document doc = Jsoup.connect(url)
                 .header("Accept", "text/html, */*; q=0.01")
                 .header("Accept-Encoding", "gzip, deflate")
@@ -36,10 +36,10 @@ public class CUCrawling implements Crawling {
                 .data("listType", "0")
                 .data("searchCondition", "")
                 
-                .ignoreContentType(true) // HTML Document°¡ ¾Æ´Ï¹Ç·Î ResponseÀÇ ÄÁÅÙÆ® Å¸ÀÔÀ» ¹«½ÃÇÑ´Ù.
+                .ignoreContentType(true) // HTML Documentê°€ ì•„ë‹ˆë¯€ë¡œ Responseì˜ ì»¨í…íŠ¸ íƒ€ì…ì„ ë¬´ì‹œí•œë‹¤.
                 .post();
           
-          // 3. °¡Á®¿Â HTML Document ¸¦ È®ÀÎÇÏ±â
+          // 3. ê°€ì ¸ì˜¨ HTML Document ë¥¼ í™•ì¸í•˜ê¸°
           return doc.toString();
       }
    
@@ -76,7 +76,7 @@ public class CUCrawling implements Crawling {
          /*
             <div class="photo">
                  <a href="javascript:view(7084);"><img src="http://cdn2.bgfretail.com/bgfbrand/files/product/8C61AD5DFD864428920BF3F54B5A7199.jpg" alt="8C61AD5DFD864428920BF3F54B5A7199.jpg" width="180" height="180"></a>
-                </div> <p class="prodName"><a href="javascript:view(7084);">2080)ÀÚÀÏ¸®ÅçÄ¡¾à</a></p> <p class="prodPrice"><span>3,900</span>¿ø</p> 
+                </div> <p class="prodName"><a href="javascript:view(7084);">2080)ìì¼ë¦¬í†¨ì¹˜ì•½</a></p> <p class="prodPrice"><span>3,900</span>ì›</p> 
                 <ul> 
                  <li>1+1</li> 
           */
