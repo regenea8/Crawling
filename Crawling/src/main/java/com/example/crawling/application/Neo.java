@@ -26,14 +26,14 @@ public class Main {
 			
 			Map<String, String> cookies = mainPage.cookies();
 			
-			Document viewPage = Jsoup.connect("http://saneo14.com/Information")
+			Document viewPage = Jsoup.connect("http://saneo14.com/pet2")
 					.cookies(cookies)
 					.execute().parse();
 			
 			String pets = getPets(viewPage);
 			
 			for (int i = 2; i < 15; i++) {
-				viewPage = Jsoup.connect("http://saneo14.com/index.php?mid=Information&page=" + i)
+				viewPage = Jsoup.connect("http://saneo14.com/index.php?mid=pet2&page=" + i)
 						.cookies(cookies)
 						.execute().parse();
 				
@@ -84,6 +84,110 @@ public class Main {
 						break;
 					case 2:
 						name = "\"name\":\"" + info[j] + "\"";
+						break;
+					case 3:
+						get = "\"get\":\"" + info[j] + "\"";
+						break;
+					case 4:
+						gold = "\"gold\":\"" + info[j] + "\"";
+						break;
+					case 5:
+						rank = "\"rank\":\"" + info[j] + "\"";
+						break;
+					case 6:
+						earth = "\"earth\":" + info[j] + "";
+						break;
+					case 7:
+						water = "\"water\":" + info[j] + "";
+						break;
+					case 8:
+						fire = "\"fire\":" + info[j] + "";
+						break;
+					case 9:
+						wind = "\"wind\":" + info[j] + "";
+						break;
+					case 10:
+						avgAtk = "\"avgAtk\":" + info[j] + "";
+						break;
+					case 11:
+						avgDef = "\"avgDef\":" + info[j] + "";
+						break;
+					case 12:
+						avgAgi = "\"avgAgi\":" + info[j] + "";
+						break;
+					case 13:
+						avgHp = "\"avgHp\":" + info[j] + "";
+						break;
+					case 14:
+						avgTotal = "\"avgTotal\":" + info[j] + "";
+						break;
+					}
+				}
+				json = json + name + ", " + img + ", " + avgHp + ", " + avgTotal + ", " + avgAtk + ", " + avgDef + ", " + avgAgi + ", " + earth + ", " + water + ", " + fire + ", " + wind + ", " + get;
+				json = json + "}\n,{";
+			}
+			
+			json = json.substring(0, json.length() - 3);
+			//System.out.println(json);
+			
+			viewPage = Jsoup.connect("http://saneo14.com/Information")
+					.cookies(cookies)
+					.execute().parse();
+			
+			pets = getPets(viewPage);
+			
+			for (int i = 2; i < 15; i++) {
+				viewPage = Jsoup.connect("http://saneo14.com/index.php?mid=Information&page=" + i)
+						.cookies(cookies)
+						.execute().parse();
+				
+				pets = pets + getPets(viewPage);
+			}
+			
+			pets = pets.replaceAll(",", ";");
+			pets = pets.replaceAll("          <tr> \n", "");
+			pets = pets.replaceAll("<tr> \n", "");
+			pets = pets.replaceAll("           <td class=\"title\"> ", "");
+			pets = pets.replaceAll("           <td class=\"m_no\">", "");
+			pets = pets.replaceAll("</td> \n", ",");
+			pets = pets.replaceAll("          </tr>", "");
+			pets = pets.replaceAll("         </tbody> \n", "");
+			pets = pets.replaceAll("        ", "");
+			pets = pets.replaceAll("&amp;", "&");
+			pets = pets.replaceAll(" class=\"hx\" ", ",");
+			pets = pets.replaceAll(" </a> ", "");
+			pets = pets.replaceAll("data-viewer=\"", "");
+			pets = pets.replaceAll("&listStyle=viewer\"> ", ",");
+			
+			//System.out.println(pets);
+			
+			json = json + ",{";
+			pet = pets.split("\n");
+			for (int i = 0; i < pet.length; i++) {
+				String[] info = pet[i].split(",");
+				String name = "";
+				String img = "";
+				String gold = "";
+				String avgHp = "";
+				String avgTotal = "";
+				String avgAtk = "";
+				String avgDef = "";
+				String avgAgi = "";
+				String rank = "";
+				String earth = "";
+				String water = "";
+				String fire = "";
+				String wind = "";
+				String get = "";
+				for (int j = 0; j < info.length; j++) {
+					switch (j) {
+					case 0:
+						break;
+					case 1:
+						img = "\"img\":\"" + info[j] + "\"";
+						break;
+					case 2:
+						name = "\"name\":\"[환]" + info[j] + "\"";
 						break;
 					case 3:
 						get = "\"get\":\"" + info[j] + "\"";
